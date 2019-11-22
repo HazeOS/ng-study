@@ -1,0 +1,7 @@
+<div class = "margin">
+
+  <app-add-car (onAddCar) = "updateCarList($event)"></app-add-car> <!--Вызов события при добавлении машины-->
+
+  <app-car *ngFor="let card of cards" [carItem]="card"></app-car> <!--Формирование карточек и их вывод-->
+
+</div>
