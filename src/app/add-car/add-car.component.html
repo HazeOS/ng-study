@@ -1,0 +1,33 @@
+<button mat-raised-button color="primary" (click) = "showAdd($event)">Добавить автомобиль</button> <!--Вывод формы добавления по кнопке-->
+
+<div *ngIf = showInputs>
+
+  <form class="margin-top add-car-form" [formGroup]="newCar" (ngSubmit)="addCar()"> <!--значение события по Submit-->
+
+    <mat-form-field>
+      <input name = "trademark" matInput formControlName="mark" placeholder="Марка">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input name = "model" formControlName="model" matInput placeholder="Модель">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Цвет</mat-label>
+      <mat-select formControlName="color">
+        <mat-option *ngFor="let CarColor of Colors" [value]="CarColor.viewValue" [style.background] = "CarColor.viewValue"> <!--Вывод цветов в цикле-->
+          {{CarColor.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input name = "relDate" formControlName="relDate" matInput [matDatepicker]="picker" placeholder="Дата выпуска"> <!--material Datepicker-->
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="year"></mat-datepicker>
+    </mat-form-field>
+
+    <button type = "submit" mat-stroked-button>Добавить</button>
+
+  </form>
+</div>
