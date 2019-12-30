@@ -10,20 +10,27 @@ import { CarsComponent } from './cars/cars.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
+
+import {PowPipe} from './pipes/pow.pipe';
 
 import {
   MatButtonModule,
-  MatCheckboxModule,
+  MatCheckboxModule, MatChipsModule,
   MatDialogModule,
   MatIconModule,
   MatInputModule,
   MatNativeDateModule,
   MatSelectModule,
   MatSnackBarModule,
-  MatTabsModule
+  MatTabsModule,
 } from '@angular/material';
 import { CarComponent } from './car/car.component';
 import { AddCarComponent } from './add-car/add-car.component';
+import { ChangeCarComponent } from './change-car/change-car.component';
+import {HeaderDirective} from './header/directives/header.directive';
+import { CarFilterPipe } from './pipes/car-filter.pipe';
 
 
 @NgModule({
@@ -33,6 +40,10 @@ import { AddCarComponent } from './add-car/add-car.component';
     CarsComponent,
     CarComponent,
     AddCarComponent,
+    ChangeCarComponent,
+    HeaderDirective,
+    PowPipe,
+    CarFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -51,6 +62,9 @@ import { AddCarComponent } from './add-car/add-car.component';
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    MatListModule,
+    MatCardModule,
+    MatChipsModule,
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

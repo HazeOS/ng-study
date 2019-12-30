@@ -1,7 +1,87 @@
 <div class = "margin">
 
-  <app-add-car (onAddCar) = "updateCarList($event)"></app-add-car> <!--Вызов события при добавлении машины-->
+  <div class="btn-list margin-bottom">
+    <app-add-car (onAddCar) = "updateCarList($event)"></app-add-car> <!--Вызов события при добавлении машины-->
+  </div>
 
-  <app-car *ngFor="let card of cards" [carItem]="card"></app-car> <!--Формирование карточек и их вывод-->
+  <mat-grid-list class = "margin-bottom" gutterSize="10px" cols="4" rowHeight="10rem">
+    <mat-grid-tile  *ngFor="let car of carList;"
+                   [class.selected]="car === selectedCar"
+                   (click)="editCar(car)" class = "cards"
+                   [colspan]="1"
+                   [rowspan]="1"
+                   [style.background]="car.color">
+    <app-car [carItem]="car">{{car}}</app-car> <!--Формирование карточек и их вывод их в цикле-->
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <ng-container *ngIf = showChangeForm>
+    <form class="margin-top edit-car-form" [formGroup]="changeCar" (ngSubmit)="commitCar(car)"> <!--значение события по Submit-->
+
+      <mat-form-field>
+        <label>
+          <input [(ngModel)]="selectedCar.trademark" name = "trademark" matInput formControlName="mark" placeholder="Марка">
+        </label>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>
+          <input [(ngModel)]="selectedCar.model" name = "model" formControlName="model" matInput placeholder="Модель">
+        </label>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Цвет</mat-label>
+        <mat-select formControlName="color">
+          <mat-option *ngFor="let col of carColor" [value]="col.value" [style.background] = "col.viewValue"> <!--Вывод цветов в цикле-->
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>
+          <input [(ngModel)]="selectedCar.relDate" name = "relDate" formControlName="relDate" matInput [matDatepicker]="picker" placeholder="Дата выпуска">
+        </label> <!--material Datepicker-->
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="year"></mat-datepicker>
+      </mat-form-field>
+
+      <button type="submit" class = "margin-bottom" mat-stroked-button>Сохранить</button>
+      <button (click)="deleteCar(selectedCar)" [color]="'delete'" mat-stroked-button>
+        <i class="material-icons delete">
+        delete_forever
+      </i>
+      </button>
+
+
+    </form>
+  </ng-container>
+
+  <button mat-raised-button [color]="'usual'" (click) = "NgSwitch()">Пример ngSwitch</button> <!--usual - пример изменеия цвета кнопки material-->
+  <ng-container *ngIf = showNgSwitch>
+    <mat-card class = "cardList" *ngFor = "let item of items" (click) = "itemPick(item)"> <!--Карточки с применением пайпа и ngSwitch, что ниже-->
+      {{item | appPow: 3}}
+    </mat-card>
+
+    <div [ngSwitch]="current">
+      <p *ngSwitchCase="1">{{current}}</p>
+      <p *ngSwitchCase="2">{{current}}</p>
+      <p *ngSwitchCase="3">{{current}}</p>
+      <p *ngSwitchDefault>Default</p>
+    </div>
+  </ng-container>
+
+  <h4>{{asyncTitle | async}}</h4>
+  <mat-form-field>
+    <label>
+      <input matInput placeholder="Search" value="" [(ngModel)]="searchCar"> <!--Инпут для поиска-->
+    </label>
+  </mat-form-field>
+
+  <mat-chip-list aria-label="Cars selection">
+    <mat-chip *ngFor = "let car of staticCars | carFilter: searchCar; let i = index"> <!--Применение пайпа carFilter для фильтрации по имени и описанию(модели) -->
+      <b>{{i+ 1 + ')'}} </b>{{car.name}} {{car.description}}
+    </mat-chip>
+  </mat-chip-list>
 
 </div>

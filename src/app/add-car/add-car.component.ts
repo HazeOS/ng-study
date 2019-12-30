@@ -1,19 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-
-export interface Card {// описание интерфейса карточки
-  trademark: string;
-  model: string;
-  relDate: string;
-  cols: number;
-  rows: number;
-  color: string;
-}
-
-export interface CarColor {// описание интерфейса цвета
-  value: string;
-  viewValue: string;
-}
+import {Colors} from '../classes/ColorList';
 
 @Component({
   selector: 'app-add-car',
@@ -31,31 +18,27 @@ export class AddCarComponent {
     relDate: new FormControl(''),
   });
 
-
-  Colors: CarColor[] = [// цвета
-    {value: 'Красный', viewValue: '#a83240'},
-    {value: 'Синий', viewValue: '#4632a8'},
-    {value: 'Зеленый', viewValue: '#008c46'},
-    {value: 'Желтый', viewValue: '#d7de1d'}
-  ];
-
-  showInputs = false;
+  showInputs = false; // переменная контроля отображения input'ов
+  carColor = Colors; // присваивание цветов из import
 
   // вывод в компонент cars c последующим отображением с помощью компонента car
-  @Output('onAddCar') carEmitter = new EventEmitter<{trademark: string, model: string, relDate: string, color: string, cols: 1, rows: 1}>();
+  @Output('onAddCar') carEmitter = new EventEmitter<{id: number, trademark: string, model: string, relDate: string, color: string, cols: 1, rows: 1, isSold: boolean}>();
 
-  showAdd(event: Event) { // скрытие/отображение формы добавления карточки
+  showAdd() { // скрытие/отображение формы добавления карточки
     this.showInputs = !this.showInputs;
   }
 
   addCar() {
+    let counter = 5;
     this.carEmitter.emit({ // добавление карточки
+      id: counter++,
       trademark: this.newCar.value.mark,
       model: this.newCar.value.model,
       relDate: this.newCar.value.relDate,
       cols: 1,
       rows: 1,
-      color: this.newCar.value.color
+      color: this.newCar.value.color,
+      isSold: false
     });
   }
 

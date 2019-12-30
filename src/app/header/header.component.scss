@@ -3,5 +3,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin:10px 10px 10px 10px;
+  margin:0 10px 0 10px;
+}
+
+.white-text{
+  color:white;
+  transition: 0.5s all;
 }

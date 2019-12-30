@@ -1,28 +1,34 @@
-<button mat-raised-button color="primary" (click) = "showAdd($event)">Добавить автомобиль</button> <!--Вывод формы добавления по кнопке-->
+<button mat-raised-button color="primary" (click) = "showAdd()">Добавить автомобиль</button> <!--Вывод формы добавления по кнопке-->
 
 <div *ngIf = showInputs>
 
   <form class="margin-top add-car-form" [formGroup]="newCar" (ngSubmit)="addCar()"> <!--значение события по Submit-->
 
     <mat-form-field>
-      <input name = "trademark" matInput formControlName="mark" placeholder="Марка">
+      <label>
+        <input name = "trademark" matInput formControlName="mark" placeholder="Марка">
+      </label>
     </mat-form-field>
 
     <mat-form-field>
-      <input name = "model" formControlName="model" matInput placeholder="Модель">
+      <label>
+        <input name = "model" formControlName="model" matInput placeholder="Модель">
+      </label>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Цвет</mat-label>
       <mat-select formControlName="color">
-        <mat-option *ngFor="let CarColor of Colors" [value]="CarColor.viewValue" [style.background] = "CarColor.viewValue"> <!--Вывод цветов в цикле-->
-          {{CarColor.value}}
+        <mat-option *ngFor="let col of carColor" [value]="col.viewValue" [style.background] = "col.viewValue"> <!--Вывод цветов в цикле-->
+          {{col.value}}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-      <input name = "relDate" formControlName="relDate" matInput [matDatepicker]="picker" placeholder="Дата выпуска"> <!--material Datepicker-->
+      <label>
+        <input name = "relDate" formControlName="relDate" matInput [matDatepicker]="picker" placeholder="Дата выпуска"> <!--material Datepicker-->
+      </label>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker startView="year"></mat-datepicker>
     </mat-form-field>

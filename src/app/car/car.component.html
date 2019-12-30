@@ -1,11 +1,7 @@
-
-<mat-grid-list class = "margin-top wrapper" gutterSize="10px" cols="4" rowHeight="4:1"> <!--Формирование + стилизация карточек + вывод на экран-->
-  <mat-grid-tile class = "cards"
-                 [colspan]="exCar.cols"
-                 [rowspan]="exCar.rows"
-                 [style.background]="exCar.color">
+ <!--Формирование + стилизация карточек + вывод на экран-->
+<div class = "carDescription">
+    {{exCar.id}})
     {{exCar.trademark | uppercase}}
-    {{exCar.model | uppercase}} <br>
+    {{exCar.model}} <br>
     {{exCar.relDate | date}}
-  </mat-grid-tile>
-</mat-grid-list>
+</div>

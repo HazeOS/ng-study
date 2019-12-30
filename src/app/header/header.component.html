@@ -1,10 +1,10 @@
 <div class = "header">
 
-  <button mat-icon-button [matMenuTriggerFor]="appMenu">
+  <button mat-icon-button [matMenuTriggerFor]="appMenu"> <!--Ссылка на appMenu, что в конце-->
     <mat-icon>toc</mat-icon>
   </button>
 
-  <h2>{{textHeader}}</h2>
+  <h2 [appHeader] = "'#4287f5'" [defaultColor] = "'transparent'">{{textHeader}}</h2> <!--Использование директивы-->
 
   <button mat-icon-button>
     <mat-icon>input</mat-icon>
